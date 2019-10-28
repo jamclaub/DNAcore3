@@ -17,20 +17,29 @@ namespace DNA.NETCORE3._0
     /// </summary>
     public partial class TrimmerWindow : Window
     {
-        public double PercentageData { get; set; }
+        public double percentageData = 0;
+        public double WindowSize = 0;
+        public double WindowQualityChoice = 0; 
+        
         public MainWindow mainWindow;
-        public TrimmerWindow(MainWindow mainWindow, double Percentage, double placeholder, double placeholder2)
+        public TrimmerWindow(MainWindow mainWindow, double Percentage, double Window,double WindowQuality)
         {
             InitializeComponent();
-            PercentageData = Percentage;
+            
             this.mainWindow = mainWindow;
-            string showPercentage = PercentageData.ToString();
-            PercentageSetting.Text = showPercentage;
+
+            percentageData = Percentage;
+            WindowSize = Window;
+            WindowQualityChoice = WindowQuality;
+            PercentageChoice.Text = Convert.ToString(percentageData);
+            WindowSizeChoice.Text = Convert.ToString(WindowSize);
+            windowQuality.Text = Convert.ToString(WindowQualityChoice);
+            
         }
 
         private void BackToMainWindow_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult choice = MessageBox.Show("Your settings will not be saved.  \n Return to main menu?", "Return ", MessageBoxButton.YesNo);
+            MessageBoxResult choice = MessageBox.Show("Your settings and any progress will not be saved.  \n Return to main menu?", "Return to Menu", MessageBoxButton.YesNo);
             switch (choice)
             {
                 case MessageBoxResult.Yes:

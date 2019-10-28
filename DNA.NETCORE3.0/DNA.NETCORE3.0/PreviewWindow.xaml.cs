@@ -24,6 +24,10 @@ namespace DNA.NETCORE3._0
         public ChartValues<ObservablePoint> ValuesB { get; set; }
         public ChartValues<ObservablePoint> ValuesC { get; set; }
         public ChartValues<ObservablePoint> ValuesD { get; set; }
+        public double percentageData = 0;
+        public double WindowSize = 0;
+        public double WindowQualityChoice = 0;
+        
         private MainWindow mainWindow;
         public PreviewWindow(MainWindow mainWindow)
         {
@@ -33,6 +37,10 @@ namespace DNA.NETCORE3._0
             ValuesB = new ChartValues<ObservablePoint>();
             ValuesC = new ChartValues<ObservablePoint>();
             ValuesD = new ChartValues<ObservablePoint>();
+
+            Percentage.Text = Convert.ToString(percentageData);
+            WSize.Text = Convert.ToString(WindowSize);
+            WQuality.Text = Convert.ToString(WindowQualityChoice);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -48,12 +56,10 @@ namespace DNA.NETCORE3._0
             DataContext = this;
         }
 
-        public double percentageData { get; set; }
         private void ChartOnDataClick(object sender, ChartPoint point)
         {
             percentageData = point.Y;
-            string showPercentage = percentageData.ToString();
-            PercentageChoice.Text = showPercentage;
+            Percentage.Text = Convert.ToString(percentageData);
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -62,14 +68,18 @@ namespace DNA.NETCORE3._0
             switch (choice)
             {
                 case MessageBoxResult.Yes:
-                    TrimmerWindow Trimmer = new TrimmerWindow(mainWindow, percentageData, 0, 0);
+                    percentageData = Convert.ToDouble(Percentage.Text);
+                    WindowSize = Convert.ToDouble(WSize.Text);
+                    WindowQualityChoice = Convert.ToDouble(WQuality.Text);
+                    TrimmerWindow Trimmer = new TrimmerWindow(mainWindow, percentageData, WindowSize, WindowQualityChoice);
                     Trimmer.Show();
                     this.Hide();
                     break;
                 case MessageBoxResult.No:
                     break;
             }
-
         }
+
+        
     }
 }

@@ -6,31 +6,51 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:local="clr-namespace:DNA.NETCORE3._0"
         mc:Ignorable="d"
-        Title="PreviewWindow" Height="1080" Width="1920" WindowState="Maximized">
-    <Grid Opacity=".8" Background="SlateGray">
-
+        Title="PreviewWindow" Height="1080" Width="1920" ResizeMode="CanResize" WindowState="Maximized">
+    <Grid Opacity=".8" Background="SlateGray" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="85"/>
-            <ColumnDefinition Width="37"/>
-            <ColumnDefinition Width="1186*"/>
-            <ColumnDefinition Width="604*"/>
+            <ColumnDefinition Width="auto" MinWidth="131"/>
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="20" />
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="343.419"/>
-            <RowDefinition Height="32"/>
-            <RowDefinition Height="28"/>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="15*" />
-            <RowDefinition Height="98*"/>
+            <RowDefinition Height="530*"/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="525*"/>
         </Grid.RowDefinitions>
 
-        <lvc:CartesianChart x:Name="Chart1" Grid.Row="0" Grid.Column="2" Grid.RowSpan="7" 
-                            Grid.ColumnSpan="2" Background="Black" LegendLocation="Bottom" 
-                            Margin="0,0,0,5" DataClick="ChartOnDataClick" DataClickCommand="{Binding DataClickcommand}"  >
+        <Grid Background="SlateGray" Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="121*" />
+                <ColumnDefinition Width="29*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="477*"/>
+            </Grid.RowDefinitions>
+            <Button      Grid.Column="0" Grid.Row="0" Content="return" Click="Button_Click"  />
+            <Button      Grid.Column="0" Grid.Row="1" Content="To Trimmer"  Click="Button_Click_3" />
+            <TextBlock   Grid.Column="0" Grid.Row="2" Text="Nucleotide quality" TextWrapping="Wrap"  />
+            <TextBlock   Grid.Column="0" Grid.Row="3" Text="Window Size" />
+            <TextBlock   Grid.Column="0" Grid.Row="4" Text="Window quality"   />
+            <TextBox     Grid.Column="1" Grid.Row="2" x:Name="Percentage" Background="White"  />
+            <TextBox     Grid.Column="1" Grid.Row="3" x:Name="WSize" Background="White" />
+            <TextBox     Grid.Column="1" Grid.Row="4" x:Name="WQuality" Background="White" />
+            <RadioButton Grid.Column="0" Grid.Row="5" Content="One File" />
+            <RadioButton Grid.Column="0" Grid.Row="6" Content="Two Files" />
+            <Button      Grid.Column="0" Grid.Row="7" Content="Select File(s)" Click="Button_Click_1" />
+
+            
+        </Grid>
+        <TextBox Grid.Row="2" Grid.Column="0"  Name="StatusBox" TextWrapping="Wrap"  />
+        <lvc:CartesianChart x:Name="Chart1" Background="Black" LegendLocation="Bottom" 
+                            DataClick="ChartOnDataClick" DataClickCommand="{Binding DataClickcommand}"  Grid.Column="1" Grid.Row="0"  >
 
             <lvc:CartesianChart.Series>
                 <lvc:ScatterSeries Title="Series A"  Values="{Binding ValuesA}" PointGeometry="{x:Static lvc:DefaultGeometries.Circle}" StrokeThickness=".5"/>
@@ -39,17 +59,16 @@
 
             <lvc:CartesianChart.AxisY>
                 <!--setting the axis unit improved the labels rounding rule-->
-                <lvc:Axis Unit="1"  MinValue="0" MaxValue ="100" Title="Reliability" ></lvc:Axis>
+                <lvc:Axis Unit="1"  MinValue="0" MaxValue ="100" Title="Quality" ></lvc:Axis>
             </lvc:CartesianChart.AxisY>
 
             <lvc:CartesianChart.AxisX>
                 <!--setting the axis unit improved the labels rounding rule-->
-                <lvc:Axis Unit="1"  MinValue="0" ></lvc:Axis>
+                <lvc:Axis Unit="1"  MinValue="0" Title="Nucleotide location" ></lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
-
-        <lvc:CartesianChart Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" Grid.RowSpan="3" Background="Black" LegendLocation="Bottom"  >
+        <lvc:CartesianChart Background="Black" LegendLocation="Bottom"  Grid.Column="1" Grid.Row="2" >
 
             <lvc:CartesianChart.Series>
                 <lvc:LineSeries Title="Series C"  Values="{Binding ValuesC}" />
@@ -58,31 +77,15 @@
 
             <lvc:CartesianChart.AxisY>
                 <!--setting the axis unit improved the labels rounding rule-->
-                <lvc:Axis Unit="1" MinValue="0" MaxValue="100" Title="Average reliablity"></lvc:Axis>
+                <lvc:Axis Unit="1" MinValue="0" MaxValue="100" Title="Average quality"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
 
             <lvc:CartesianChart.AxisX>
                 <!--setting the axis unit improved the labels rounding rule-->
-                <lvc:Axis Unit="1"  MinValue="0"></lvc:Axis>
+                <lvc:Axis Unit="1"  MinValue="0" Title="Nucleotide location"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
 
         </lvc:CartesianChart>
-
-        <Button Grid.Column="0" Grid.Row="0"  Content="return" Click="Button_Click"   />
-
-        <Button Grid.Row="6" Grid.Column="0"  Content="Confirm"    Click="Button_Click_1" />
-
-        <RadioButton Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Content="One File"   RenderTransformOrigin="0.5,0.545"  />
-
-        <RadioButton Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="Two Files"    />
-
-        <Button Grid.Column="0" Grid.Row="1"  Content="Increment 500" FontSize="9"  />
-
-        <TextBox Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2" Grid.RowSpan="2" Name="StatusBox" TextWrapping="Wrap" Margin="0,2,0,0"   />
-
-        <TextBlock x:Name="PercentageChoice" HorizontalAlignment="Left" Margin="0,43,0,0" Text="{Binding percentageData}" TextWrapping="Wrap" VerticalAlignment="Top" Grid.Row="3"/>
-
-        <Button Content="Button" HorizontalAlignment="Left" Margin="25,119,0,0" Grid.Row="3" VerticalAlignment="Top" Click="Button_Click_3"/>
 
     </Grid>
 </Window>

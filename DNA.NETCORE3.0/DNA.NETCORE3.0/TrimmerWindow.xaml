@@ -5,10 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DNA.NETCORE3._0"
         mc:Ignorable="d"
-        Title="Window2" Height="1080" Width="1920">
-    <Grid>
-        <TextBlock x:Name="PercentageSetting" Text="{Binding PercentageData}" HorizontalAlignment="Left" Margin="185,159,0,0"  TextWrapping="Wrap" VerticalAlignment="Top" Foreground="#FFFD0000"/>
-        <Button x:Name="BackToMainWindow" Content="Back" HorizontalAlignment="Left" VerticalAlignment="Top" Width="45" Click="BackToMainWindow_Click"/>
+        Title="Window2" Height="1080" Width="1920" ResizeMode="CanResize" WindowState="Maximized">
+
+
+    <Grid Opacity=".8" Background="SlateGray">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="87"/>
+            <ColumnDefinition Width="163"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="21*"/>
+            <RowDefinition Height="93*"/>
+            <RowDefinition Height="950*"/>
+        </Grid.RowDefinitions>
+
+
+
+        <TextBlock x:Name="PercentageChoice"  Text="{Binding percentageData}"   Grid.Row="1" Grid.Column="1" Background="White" Margin="0,0,16,4" Height="26" VerticalAlignment="Bottom" />
+
+        <TextBlock x:Name="WindowSizeChoice" Text="{Binding WindowSize}" Grid.Column="1" Grid.Row="2"  Background="White" Margin="0,0,16,2" />
+
+        <TextBlock x:Name="windowQuality" Text="{Binding WindowQualityChoice}" Grid.Column="1" Grid.Row="0"  Background="White" Margin="0,0,16,0"/>
+        
+        <Button x:Name="BackToMainWindow" Content="Back" Click="BackToMainWindow_Click" />
+        
 
     </Grid>
 </Window>
