@@ -51,8 +51,20 @@ namespace DNA.NETCORE3._0
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Previewer pre = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD);
-            pre.runRandomSampler();
+            Previewer pre1 = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD);
+            Previewer pre2 = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD);
+            if(SingleFileSelected && !TwoFilesSelected)
+            {
+                pre1.runRandomSampler();
+            }
+            else if(!SingleFileSelected && TwoFilesSelected)
+            {
+                pre1.runRandomSamplerTwoFiles();
+            }
+            else if(SingleFileSelected && TwoFilesSelected || !SingleFileSelected && !TwoFilesSelected)
+            {
+                MessageBoxResult choice = MessageBox.Show("Please select how many files you wish to preview", "File Number", MessageBoxButton.OK);
+            }
             DataContext = this;
         }
 
@@ -80,6 +92,18 @@ namespace DNA.NETCORE3._0
             }
         }
 
-        
+        private bool SingleFileSelected = false;
+        private bool TwoFilesSelected = false;
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            SingleFileSelected = true;
+            TwoFilesSelected = false;
+        }
+
+        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        {
+            SingleFileSelected = false;
+            TwoFilesSelected = true;
+        }
     }
 }

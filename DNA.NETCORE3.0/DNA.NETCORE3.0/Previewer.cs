@@ -44,10 +44,17 @@ namespace DNA.NETCORE3._0
         public void runRandomSampler()
         {
             fileselector();
-            randomSampler(ValA, ValB, ValC, ValD);
+            randomSampler(ValA, ValC);
         }
 
-        public void randomSampler(ChartValues<ObservablePoint> A, ChartValues<ObservablePoint> B, ChartValues<ObservablePoint> C, ChartValues<ObservablePoint> D)
+        public void runRandomSamplerTwoFiles()
+        {
+            fileselector();
+            randomSampler(ValA, ValC);
+            fileselector();
+            randomSampler(ValB, ValD);
+        }
+        public void randomSampler(ChartValues<ObservablePoint> A, ChartValues<ObservablePoint> C)
         {
             int y = 0;
             int p = 0;

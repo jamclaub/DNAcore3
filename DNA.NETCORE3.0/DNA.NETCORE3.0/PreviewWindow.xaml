@@ -42,8 +42,8 @@
             <TextBox     Grid.Column="1" Grid.Row="2" x:Name="Percentage" Background="White"  />
             <TextBox     Grid.Column="1" Grid.Row="3" x:Name="WSize" Background="White" />
             <TextBox     Grid.Column="1" Grid.Row="4" x:Name="WQuality" Background="White" />
-            <RadioButton Grid.Column="0" Grid.Row="5" Content="One File" />
-            <RadioButton Grid.Column="0" Grid.Row="6" Content="Two Files" />
+            <RadioButton x:Name="OneFile" Grid.Column="0" Grid.Row="5" Content="One File" Checked="RadioButton_Checked" />
+            <RadioButton Grid.Column="0" Grid.Row="6" Content="Two Files" Checked="RadioButton_Checked_1" />
             <Button      Grid.Column="0" Grid.Row="7" Content="Select File(s)" Click="Button_Click_1" />
 
             
