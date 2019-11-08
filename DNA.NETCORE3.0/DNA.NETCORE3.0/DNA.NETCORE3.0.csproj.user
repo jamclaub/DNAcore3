@@ -17,9 +17,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="MainWindow.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="PreviewWindow.xaml">
       <SubType>Designer</SubType>
     </Page>

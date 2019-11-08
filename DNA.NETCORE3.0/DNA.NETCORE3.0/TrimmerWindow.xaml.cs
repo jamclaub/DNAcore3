@@ -21,8 +21,8 @@ namespace DNA.NETCORE3._0
         public double WindowSize = 0;
         public double WindowQualityChoice = 0; 
         
-        public MainWindow mainWindow;
-        public TrimmerWindow(MainWindow mainWindow, double Percentage, double Window,double WindowQuality)
+        public PreviewWindow mainWindow;
+        public TrimmerWindow(PreviewWindow mainWindow, double Percentage, double Window,double WindowQuality)
         {
             InitializeComponent();
             

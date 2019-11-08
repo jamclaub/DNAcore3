@@ -28,11 +28,11 @@ namespace DNA.NETCORE3._0
         public double WindowSize = 0;
         public double WindowQualityChoice = 0;
         
-        private MainWindow mainWindow;
-        public PreviewWindow(MainWindow mainWindow)
+        
+        public PreviewWindow()
         {
             InitializeComponent();
-            this.mainWindow = mainWindow;
+            MessageBoxResult result = MessageBox.Show("some instructions here");
             ValuesA = new ChartValues<ObservablePoint>();
             ValuesB = new ChartValues<ObservablePoint>();
             ValuesC = new ChartValues<ObservablePoint>();
@@ -45,7 +45,7 @@ namespace DNA.NETCORE3._0
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            mainWindow.Show();
+            
             this.Hide();
         }
 
@@ -83,7 +83,7 @@ namespace DNA.NETCORE3._0
                     percentageData = Convert.ToDouble(Percentage.Text);
                     WindowSize = Convert.ToDouble(WSize.Text);
                     WindowQualityChoice = Convert.ToDouble(WQuality.Text);
-                    TrimmerWindow Trimmer = new TrimmerWindow(mainWindow, percentageData, WindowSize, WindowQualityChoice);
+                    TrimmerWindow Trimmer = new TrimmerWindow(this, percentageData, WindowSize, WindowQualityChoice);
                     Trimmer.Show();
                     this.Hide();
                     break;

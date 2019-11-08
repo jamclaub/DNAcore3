@@ -34,7 +34,6 @@
                 <RowDefinition Height="25"/>
                 <RowDefinition Height="477*"/>
             </Grid.RowDefinitions>
-            <Button      Grid.Column="0" Grid.Row="0" Content="return" Click="Button_Click"  />
             <Button      Grid.Column="0" Grid.Row="1" Content="To Trimmer"  Click="Button_Click_3" />
             <TextBlock   Grid.Column="0" Grid.Row="2" Text="Nucleotide quality" TextWrapping="Wrap"  />
             <TextBlock   Grid.Column="0" Grid.Row="3" Text="Window Size" />
