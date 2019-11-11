@@ -74,25 +74,37 @@ namespace DNA.NETCORE3._0
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            percentageData = Convert.ToDouble(Percentage.Text);
-            WindowSize = Convert.ToDouble(WSize.Text);
-            WindowQualityChoice = Convert.ToDouble(WQuality.Text);
-            
-            MessageBoxResult choice = MessageBox.Show("Quality of Nucleotides: " + percentageData + "\n" +
-                                                      "Window Size: " + WindowSize + "\n" +
-                                                      "Window Quality: " + WindowQualityChoice + "\n" +
-                                                      "Trimmer Version and offset: " + trimmername + " " + offset + "\n" +
-                                                      "Send these settings to the trimmer?","Settings", MessageBoxButton.YesNo);
-
-            switch (choice)
+            if (!SangerBool && !SolexaBool && !IlluminaV1Bool && !IlluminaV2Bool && !CustomBool)
             {
-                case MessageBoxResult.Yes:
-                    
-                    
-                    break;
-                case MessageBoxResult.No:
-                    break;
+                MessageBox.Show("Must choose an offset", "offset", MessageBoxButton.OK);
             }
+            else if(string.IsNullOrEmpty(Percentage.Text) || string.IsNullOrEmpty(WSize.Text) || string.IsNullOrEmpty(WQuality.Text) 
+                || string.IsNullOrEmpty(CustomOffset.Text) && CustomBool)
+            {
+                MessageBox.Show("Settings cannot be null", "Empty settings",MessageBoxButton.OK);
+            }
+
+            else
+            {
+                percentageData = Convert.ToDouble(Percentage.Text);
+                WindowSize = Convert.ToDouble(WSize.Text);
+                WindowQualityChoice = Convert.ToDouble(WQuality.Text);
+                MessageBoxResult choice = MessageBox.Show("Quality of Nucleotides: " + percentageData + "\n" +
+                                                          "Window Size: " + WindowSize + "\n" +
+                                                          "Window Quality: " + WindowQualityChoice + "\n" +
+                                                          "Trimmer Version and offset: " + trimmername + " " + offset + "\n" +
+                                                          "Send these settings to the trimmer?","Settings", MessageBoxButton.YesNo);
+                switch (choice)
+                {
+                    case MessageBoxResult.Yes:
+                    
+                    
+                        break;
+                    case MessageBoxResult.No:
+                        break;
+                }
+            }
+            
         }
 
         
