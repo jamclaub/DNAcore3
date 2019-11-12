@@ -84,12 +84,12 @@
 
             <lvc:CartesianChart.AxisY>
                 <!--setting the axis unit improved the labels rounding rule-->
-                <lvc:Axis Unit="1"  MinValue="0" MaxValue ="100" Title="Quality" ></lvc:Axis>
+                <lvc:Axis Unit="1"  MinValue="0" MaxValue ="100" Title="Quality" FontSize="18"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
 
             <lvc:CartesianChart.AxisX>
                 <!--setting the axis unit improved the labels rounding rule-->
-                <lvc:Axis Unit="1"  MinValue="0" Title="Nucleotide location" ></lvc:Axis>
+                <lvc:Axis Unit="1"  MinValue="0" Title="Nucleotide location" FontSize="18"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
         </lvc:CartesianChart>
 
@@ -102,12 +102,12 @@
 
             <lvc:CartesianChart.AxisY>
                 <!--setting the axis unit improved the labels rounding rule-->
-                <lvc:Axis Unit="1" MinValue="0" MaxValue="100" Title="Average quality"></lvc:Axis>
+                <lvc:Axis Unit="1" MinValue="0" MaxValue="100" Title="Average quality" FontSize="18"></lvc:Axis>
             </lvc:CartesianChart.AxisY>
 
             <lvc:CartesianChart.AxisX>
                 <!--setting the axis unit improved the labels rounding rule-->
-                <lvc:Axis Unit="1"  MinValue="0" Title="Nucleotide location"></lvc:Axis>
+                <lvc:Axis Unit="1"  MinValue="0" Title="Nucleotide location" FontSize="18"></lvc:Axis>
             </lvc:CartesianChart.AxisX>
 
         </lvc:CartesianChart>

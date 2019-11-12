@@ -24,9 +24,9 @@ namespace DNA.NETCORE3._0
         public ChartValues<ObservablePoint> ValuesB { get; set; }
         public ChartValues<ObservablePoint> ValuesC { get; set; }
         public ChartValues<ObservablePoint> ValuesD { get; set; }
-        public double percentageData = 0;
-        public double WindowSize = 0;
-        public double WindowQualityChoice = 0;
+        public int percentageData = 0;
+        public int WindowSize = 0;
+        public int WindowQualityChoice = 0;
         private bool SingleFileSelected = false;
         private bool TwoFilesSelected = false;
         private bool SangerBool = false;
@@ -68,7 +68,7 @@ namespace DNA.NETCORE3._0
 
         private void ChartOnDataClick(object sender, ChartPoint point)
         {
-            percentageData = point.Y;
+            percentageData = (int) point.Y;
             Percentage.Text = Convert.ToString(percentageData);
         }
 
@@ -86,9 +86,9 @@ namespace DNA.NETCORE3._0
 
             else
             {
-                percentageData = Convert.ToDouble(Percentage.Text);
-                WindowSize = Convert.ToDouble(WSize.Text);
-                WindowQualityChoice = Convert.ToDouble(WQuality.Text);
+                percentageData = Convert.ToInt32(Percentage.Text);
+                WindowSize = Convert.ToInt32(WSize.Text);
+                WindowQualityChoice = Convert.ToInt32(WQuality.Text);
                 MessageBoxResult choice = MessageBox.Show("Quality of Nucleotides: " + percentageData + "\n" +
                                                           "Window Size: " + WindowSize + "\n" +
                                                           "Window Quality: " + WindowQualityChoice + "\n" +
@@ -97,8 +97,9 @@ namespace DNA.NETCORE3._0
                 switch (choice)
                 {
                     case MessageBoxResult.Yes:
-                    
-                    
+                        Trimmer Trim = new Trimmer(percentageData, WindowSize, WindowQualityChoice, offset);
+                        Trim.singlefile();
+                        MessageBox.Show("Your file has been trimed", "Trimmer complete", MessageBoxButton.OK);
                         break;
                     case MessageBoxResult.No:
                         break;

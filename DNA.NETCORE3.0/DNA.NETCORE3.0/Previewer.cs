@@ -7,6 +7,7 @@ using LiveCharts.Defaults;
 using System.IO;
 using System.Windows;
 
+
 namespace DNA.NETCORE3._0
 {
     class Previewer
@@ -46,7 +47,6 @@ namespace DNA.NETCORE3._0
             fileselector();
             randomSampler(ValA, ValC);
         }
-
         public void runRandomSamplerTwoFiles()
         {
             fileselector();
@@ -54,6 +54,7 @@ namespace DNA.NETCORE3._0
             fileselector();
             randomSampler(ValB, ValD);
         }
+
         public void randomSampler(ChartValues<ObservablePoint> A, ChartValues<ObservablePoint> C)
         {
             int y = 0;
@@ -83,17 +84,17 @@ namespace DNA.NETCORE3._0
                     */
                     if (avgs.Count <= z)
                     {
-                        avgs.Add(Convert.ToInt32(c));
+                        avgs.Add(Convert.ToInt32(c) - 33);
 
                     }
                     else
                     {
-                        avgs[z] = avgs[z] + Convert.ToInt32(c);
+                        avgs[z] = avgs[z] + Convert.ToInt32(c) - 33;
                     }
 
                     if (p % 10000 == 0)
                     {
-                        A.Add(new ObservablePoint(z + 1, Convert.ToInt32(c)));
+                        A.Add(new ObservablePoint(z + 1, Convert.ToInt32(c) - 33));
                     }
 
 
@@ -107,16 +108,17 @@ namespace DNA.NETCORE3._0
             {
                 avgs[i] = avgs[i] / f.z.Count;
                 C.Add(new ObservablePoint(i + 1, avgs[i]));
+                
+
+            }
                 foreach (Window window in Application.Current.Windows)
                 {
                     if (window.GetType() == typeof(PreviewWindow))
                     {
-                        (window as PreviewWindow).StatusBox.Text = (window as PreviewWindow).StatusBox.Text + "\n" + avgs[i] + "\n";
+                        (window as PreviewWindow).StatusBox.Text = (window as PreviewWindow).StatusBox.Text + "\nPreviewer complete\n";
 
                     }
                 }
-
-            }
         }
 
         /*
