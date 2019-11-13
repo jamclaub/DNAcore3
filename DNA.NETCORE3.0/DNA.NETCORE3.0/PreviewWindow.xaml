@@ -64,7 +64,7 @@
             <TextBox     Grid.Column="1" Grid.Row="13" x:Name="WQuality" PreviewTextInput="WQuality_PreviewTextInput" Background="White" />
             <TextBlock   Grid.Column="0" Grid.Row="14" x:Name="MaxWinFail" Text="Max windows failed" Grid.ColumnSpan="2"/>
             <TextBox     Grid.Column="1" Grid.Row="14" x:Name="MaxWinFailBox" PreviewTextInput="MaxWinFailBox_PreviewTextInput" Background="White"/>
-            <Button      Grid.Column="0" Grid.Row="15" Content="To Trimmer"  Click="Button_Click_3"  />
+            <Button      Grid.Column="0" Grid.Row="15" Content="Start trimmer"  Click="Button_Click_3"  />
             <TextBox     Grid.Column="0" Grid.Row="16"  Name="StatusBox" TextWrapping="Wrap"   />
         </Grid>
 
