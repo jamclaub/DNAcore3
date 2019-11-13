@@ -49,20 +49,26 @@ namespace DNA.NETCORE3._0
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Previewer pre1 = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD);
-            
-            if(SingleFileSelected && !TwoFilesSelected)
-            {
-                pre1.runRandomSampler();
-            }
-            else if(!SingleFileSelected && TwoFilesSelected)
-            {
-                pre1.runRandomSamplerTwoFiles();
-            }
-            else if(SingleFileSelected && TwoFilesSelected || !SingleFileSelected && !TwoFilesSelected)
+            if(SingleFileSelected && TwoFilesSelected || !SingleFileSelected && !TwoFilesSelected)
             {
                 MessageBoxResult choice = MessageBox.Show("Please select how many files you wish to preview", "File Number", MessageBoxButton.OK);
             }
+            else if (!SangerBool && !SolexaBool && !IlluminaV1Bool && !IlluminaV2Bool && !CustomBool)
+            {
+                MessageBox.Show("Must choose a paradigm", "Paradigm", MessageBoxButton.OK);
+            }
+            else if (SingleFileSelected && !TwoFilesSelected)
+            {
+                Previewer pre1 = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD);
+                pre1.runRandomSampler();
+
+            }
+            else if(!SingleFileSelected && TwoFilesSelected)
+            {
+                Previewer pre1 = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD);
+                pre1.runRandomSamplerTwoFiles();
+            }
+            
             DataContext = this;
         }
 
@@ -76,23 +82,26 @@ namespace DNA.NETCORE3._0
         {
             if (!SangerBool && !SolexaBool && !IlluminaV1Bool && !IlluminaV2Bool && !CustomBool)
             {
-                MessageBox.Show("Must choose an offset", "offset", MessageBoxButton.OK);
+                MessageBox.Show("Must choose a paradigm", "Paradigm", MessageBoxButton.OK);
             }
             else if(string.IsNullOrEmpty(Percentage.Text) || string.IsNullOrEmpty(WSize.Text) || string.IsNullOrEmpty(WQuality.Text) 
                 || string.IsNullOrEmpty(CustomOffset.Text) && CustomBool)
             {
                 MessageBox.Show("Settings cannot be null", "Empty settings",MessageBoxButton.OK);
             }
-
             else
             {
+                if (CustomBool)
+                {
+                    offset = Convert.ToInt32(CustomOffset.Text);
+                }
                 percentageData = Convert.ToInt32(Percentage.Text);
                 WindowSize = Convert.ToInt32(WSize.Text);
                 WindowQualityChoice = Convert.ToInt32(WQuality.Text);
                 MessageBoxResult choice = MessageBox.Show("Quality of Nucleotides: " + percentageData + "\n" +
                                                           "Window Size: " + WindowSize + "\n" +
                                                           "Window Quality: " + WindowQualityChoice + "\n" +
-                                                          "Trimmer Version and offset: " + trimmername + " " + offset + "\n" +
+                                                          "Paradigm: " + trimmername + " " + offset + "\n" +
                                                           "Send these settings to the trimmer?","Settings", MessageBoxButton.YesNo);
                 switch (choice)
                 {
@@ -201,7 +210,10 @@ namespace DNA.NETCORE3._0
         {
             e.Handled = !InRange(((TextBox)sender).Text + e.Text);
         }
-
+        private void MaxWinFailBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !InRange(((TextBox)sender).Text + e.Text);
+        }
         private void CustomOffset_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !InRange(((TextBox)sender).Text + e.Text);
@@ -210,7 +222,7 @@ namespace DNA.NETCORE3._0
         public bool InRange(string str)
         {
             double i;
-            return double.TryParse(str, out i) && i > -1 && i < 101;
+            return double.TryParse(str, out i) && i > 0 && i < 101;
         }
     }
 }
