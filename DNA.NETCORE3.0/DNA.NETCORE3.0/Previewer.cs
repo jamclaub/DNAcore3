@@ -27,12 +27,14 @@ namespace DNA.NETCORE3._0
         public ChartValues<ObservablePoint> ValB { get; set; }
         public ChartValues<ObservablePoint> ValC { get; set; }
         public ChartValues<ObservablePoint> ValD { get; set; }
-        public Previewer(ChartValues<ObservablePoint> A, ChartValues<ObservablePoint> B, ChartValues<ObservablePoint> C, ChartValues<ObservablePoint> D)
+        public int offset = 0;
+        public Previewer(ChartValues<ObservablePoint> A, ChartValues<ObservablePoint> B, ChartValues<ObservablePoint> C, ChartValues<ObservablePoint> D, int Offset)
         {
             ValA = A;
             ValB = B;
             ValC = C;
             ValD = D;
+            offset = Offset;
         }
         public void fileselector()
         {
@@ -84,17 +86,17 @@ namespace DNA.NETCORE3._0
                     */
                     if (avgs.Count <= z)
                     {
-                        avgs.Add(Convert.ToInt32(c) - 33);
+                        avgs.Add(Convert.ToInt32(c) - offset);
 
                     }
                     else
                     {
-                        avgs[z] = avgs[z] + Convert.ToInt32(c) - 33;
+                        avgs[z] = avgs[z] + Convert.ToInt32(c) - offset;
                     }
 
                     if (p % 10000 == 0)
                     {
-                        A.Add(new ObservablePoint(z + 1, Convert.ToInt32(c) - 33));
+                        A.Add(new ObservablePoint(z + 1, Convert.ToInt32(c) - offset));
                     }
 
 

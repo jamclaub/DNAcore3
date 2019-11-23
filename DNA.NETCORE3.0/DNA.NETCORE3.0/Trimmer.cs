@@ -36,11 +36,12 @@ namespace DNA.NETCORE3._0
         private List<string> SequenceLine2 = new List<string>();
         private List<string> QualityLine2 = new List<string>();
 
-        public Trimmer(int Quality, int WindowSize, int WindowQuality, int Offset)
+        public Trimmer(int Quality, int WindowSize, int WindowQuality, int MaxWindowFail, int Offset)
         {
             minqual = Quality;
             window = WindowSize;
             minwin = WindowQuality;
+            failedwindows = MaxWindowFail;
             skew = Offset;
         }
 

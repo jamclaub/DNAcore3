@@ -27,6 +27,7 @@ namespace DNA.NETCORE3._0
         public int percentageData = 0;
         public int WindowSize = 0;
         public int WindowQualityChoice = 0;
+        public int MaxNumWindowFail = 0;
         private bool SingleFileSelected = false;
         private bool TwoFilesSelected = false;
         private bool SangerBool = false;
@@ -49,6 +50,7 @@ namespace DNA.NETCORE3._0
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            
             if(SingleFileSelected && TwoFilesSelected || !SingleFileSelected && !TwoFilesSelected)
             {
                 MessageBoxResult choice = MessageBox.Show("Please select how many files you wish to preview", "File Number", MessageBoxButton.OK);
@@ -57,15 +59,17 @@ namespace DNA.NETCORE3._0
             {
                 MessageBox.Show("Must choose a paradigm", "Paradigm", MessageBoxButton.OK);
             }
-            else if (SingleFileSelected && !TwoFilesSelected)
+            else if (SingleFileSelected && !TwoFilesSelected &&  !CustomBool)
             {
-                Previewer pre1 = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD);
+                
+                Previewer pre1 = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD, offset);
                 pre1.runRandomSampler();
 
             }
-            else if(!SingleFileSelected && TwoFilesSelected)
+            else if(!SingleFileSelected && TwoFilesSelected && !CustomBool)
             {
-                Previewer pre1 = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD);
+                
+                Previewer pre1 = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD, offset);
                 pre1.runRandomSamplerTwoFiles();
             }
             
@@ -98,15 +102,17 @@ namespace DNA.NETCORE3._0
                 percentageData = Convert.ToInt32(Percentage.Text);
                 WindowSize = Convert.ToInt32(WSize.Text);
                 WindowQualityChoice = Convert.ToInt32(WQuality.Text);
+                MaxNumWindowFail = Convert.ToInt32(MaxWinFailBox.Text);
                 MessageBoxResult choice = MessageBox.Show("Quality of Nucleotides: " + percentageData + "\n" +
                                                           "Window Size: " + WindowSize + "\n" +
                                                           "Window Quality: " + WindowQualityChoice + "\n" +
+                                                          "Max number of failed windows: " + MaxNumWindowFail + "\n" +
                                                           "Paradigm: " + trimmername + " " + offset + "\n" +
-                                                          "Send these settings to the trimmer?","Settings", MessageBoxButton.YesNo);
+                                                          "Send these settings to the trimmer?", "Settings", MessageBoxButton.YesNo) ;
                 switch (choice)
                 {
                     case MessageBoxResult.Yes:
-                        Trimmer Trim = new Trimmer(percentageData, WindowSize, WindowQualityChoice, offset);
+                        Trimmer Trim = new Trimmer(percentageData, WindowSize, WindowQualityChoice, MaxNumWindowFail, offset);
                         Trim.singlefile();
                         MessageBox.Show("Your file has been trimed", "Trimmer complete", MessageBoxButton.OK);
                         break;
