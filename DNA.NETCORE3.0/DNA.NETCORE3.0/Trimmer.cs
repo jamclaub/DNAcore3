@@ -36,6 +36,7 @@ namespace DNA.NETCORE3._0
         private List<string> SequenceLine2 = new List<string>();
         private List<string> QualityLine2 = new List<string>();
 
+        // constructor that sets the values from the trimmerwindow
         public Trimmer(int Quality, int WindowSize, int WindowQuality, int MaxWindowFail, int Offset)
         {
             minqual = Quality;
@@ -54,7 +55,7 @@ namespace DNA.NETCORE3._0
 
         public void singlefile()
         {
-
+            //creates new Filemanager
             f = new Filemanager();
             one = f.trimmerselector();
             directa = f.directgetter();

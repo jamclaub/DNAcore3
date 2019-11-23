@@ -40,8 +40,10 @@ namespace DNA.NETCORE3._0
         
         public PreviewWindow()
         {
+            /*
+             * Chart values are created, needed to place input into charts
+             */
             InitializeComponent();
-            //MessageBoxResult result = MessageBox.Show("some instructions here");
             ValuesA = new ChartValues<ObservablePoint>();
             ValuesB = new ChartValues<ObservablePoint>();
             ValuesC = new ChartValues<ObservablePoint>();
@@ -50,7 +52,12 @@ namespace DNA.NETCORE3._0
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            
+            /*
+             * runs the previewer
+             * If the number of files are not selected, it will tell you to select them.
+             * In addition, if you dont choose a paradigm it will ask you to choose one.
+             * If you chose to preview two files, it will do that also.
+             */
             if(SingleFileSelected && TwoFilesSelected || !SingleFileSelected && !TwoFilesSelected)
             {
                 MessageBoxResult choice = MessageBox.Show("Please select how many files you wish to preview", "File Number", MessageBoxButton.OK);
@@ -61,29 +68,32 @@ namespace DNA.NETCORE3._0
             }
             else if (SingleFileSelected && !TwoFilesSelected &&  !CustomBool)
             {
-                
                 Previewer pre1 = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD, offset);
                 pre1.runRandomSampler();
-
             }
             else if(!SingleFileSelected && TwoFilesSelected && !CustomBool)
             {
-                
                 Previewer pre1 = new Previewer(ValuesA, ValuesB, ValuesC, ValuesD, offset);
                 pre1.runRandomSamplerTwoFiles();
             }
-            
+            // must have this to get results to the charts.
             DataContext = this;
         }
 
         private void ChartOnDataClick(object sender, ChartPoint point)
         {
+            // This allows the user to click a point on the TOP chart and use that value as the nucleotide reliability value.
             percentageData = (int) point.Y;
             Percentage.Text = Convert.ToString(percentageData);
         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
+            /*
+             * If there is no paradigm selected it will ask you to select one.
+             * You must also have something in the settings boxes. You cannot have null values.
+             * If everything is ready to be sent, a messagebox will ask you to confirm your settings and then send them to the trimmer.
+             */
             if (!SangerBool && !SolexaBool && !IlluminaV1Bool && !IlluminaV2Bool && !CustomBool)
             {
                 MessageBox.Show("Must choose a paradigm", "Paradigm", MessageBoxButton.OK);
@@ -123,20 +133,24 @@ namespace DNA.NETCORE3._0
             
         }
 
-        
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
+            // bools to determine the number of files selected
             SingleFileSelected = true;
             TwoFilesSelected = false;
         }
 
         private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
         {
+            // bools to determine the number of files selected
             SingleFileSelected = false;
             TwoFilesSelected = true;
         }
 
-        
+        /*
+         * the following five methods set the offset, set the customoffset textbox to gray and cannot be written to
+         * and sets the name of the offset paradigm so that you know which paradigm you are using in the confirmation message box
+         */
         private void Sanger_Checked(object sender, RoutedEventArgs e)
         {
             trimmername = "Sanger";
@@ -202,16 +216,18 @@ namespace DNA.NETCORE3._0
             CustomBool = true;
         }
 
+        /*
+         * The following methods makes sure that you dont put anything other than integer values into the settings
+         * In addition it gives it a range from 1-100.
+         */
         private void Percentage_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !InRange(((TextBox)sender).Text + e.Text);
         }
-
         private void WSize_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !InRange(((TextBox)sender).Text + e.Text);
         }
-
         private void WQuality_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !InRange(((TextBox)sender).Text + e.Text);
@@ -227,8 +243,8 @@ namespace DNA.NETCORE3._0
         
         public bool InRange(string str)
         {
-            double i;
-            return double.TryParse(str, out i) && i > 0 && i < 101;
+            int i;
+            return int.TryParse(str, out i) && i > 0 && i < 101;
         }
     }
 }

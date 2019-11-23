@@ -68,27 +68,7 @@ namespace DNA.NETCORE3._0
                 counter++;
 
             }
-            //fl.Read(first, 0, 300);
-
-            //temp = Encoding.UTF8.GetString(first, 0, first.Length).Split('=','\n');
-            //lnum = Encoding.UTF8.GetString(first, 0, first.Length).Split('.', ' ');
-
-            //split name line to find name of sequence
-            //seqnames[i] = temp.Split(' ');
-
-            //make int x equal the length of sequence
-            //int x = Convert.ToInt32(temp[1]);
-
-
-
-
-
-            //fl.Seek(-2*x, SeekOrigin.End);
-            //fl.Read(last,0, 300);
-            //fl.Close();
-            //fnum = Encoding.UTF8.GetString(last, 0, last.Length).Split('.', ' ');
-
-
+           
             Random y = new Random();
             int q;
             for (int i = 0; i < .05 * counter; i++)
@@ -104,30 +84,6 @@ namespace DNA.NETCORE3._0
                 }
 
             }
-
-
-
-            /*
-            
-            foreach (Window window in Application.Current.Windows)
-            {
-                if (window.GetType() == typeof(Window1))
-                {
-                    (window as Window1).StatusBox.Text = (window as Window1).StatusBox.Text + "\n" + x + "\n" + lnum[2] + "\n" + fnum[2] +  "\n";
-                }
-            }
-            
-            foreach(int i in z)
-            {
-                foreach (Window window in Application.Current.Windows)
-                {
-                    if (window.GetType() == typeof(Window1))
-                    {
-                        (window as Window1).StatusBox.Text = (window as Window1).StatusBox.Text + "\n" + i + "\n";
-                    }
-                }
-            }
-            */
 
             fs = new StreamReader(direct);
             z.Sort();
