@@ -62,7 +62,9 @@ namespace DNA.NETCORE3._0
 
         public void randomSampler(ChartValues<ObservablePoint> A, ChartValues<ObservablePoint> C)
         {
+            // y, for counting the number of iterations
             int y = 0;
+
             int p = 0;
 
             for (int x = 0; x < f.z.Count; x++)
@@ -93,6 +95,7 @@ namespace DNA.NETCORE3._0
                     }
                     else
                     {
+                        // makes sure that the average is accurate
                         avgs[z] = avgs[z] + Convert.ToInt32(c) - offset;
                     }
 

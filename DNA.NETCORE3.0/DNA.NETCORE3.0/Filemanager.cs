@@ -59,6 +59,7 @@ namespace DNA.NETCORE3._0
             int counter = 0;
             fl = new StreamReader(direct);
 
+            // gets a count of the number of reads in the file
             while (!fl.EndOfStream)
             {
                 fl.ReadLine();
@@ -74,15 +75,12 @@ namespace DNA.NETCORE3._0
             for (int i = 0; i < .05 * counter; i++)
             {
 
-
-
                 q = y.Next(1, counter);
                 //Predicate<int> t = q;
                 if (z.IndexOf(q) == -1)
                 {
                     z.Add(q);
                 }
-
             }
 
             fs = new StreamReader(direct);
