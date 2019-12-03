@@ -20,6 +20,8 @@ namespace DNA.NETCORE3._0
             dlg.DefaultExt = ".txt";
             dlg.Filter = "Fastq Files (*.Fastq)|*.Fastq";
 
+
+           
             System.Nullable<bool> result = dlg.ShowDialog();
             if (result == true)
             {
@@ -38,7 +40,7 @@ namespace DNA.NETCORE3._0
             Byte[] last = new Byte[512];
             string[] temp = new string[8192];
             string[] fnum = new string[8192];
-            //int fsize;
+            
 
             string[] lnum = new string[8192];
 
@@ -58,7 +60,7 @@ namespace DNA.NETCORE3._0
             }
             int counter = 0;
             fl = new StreamReader(direct);
-
+            //counts number of reads
             while (!fl.EndOfStream)
             {
                 fl.ReadLine();
@@ -71,6 +73,7 @@ namespace DNA.NETCORE3._0
            
             Random y = new Random();
             int q;
+            //generates random numbers between 1 and total read number across 5% of read number
             for (int i = 0; i < .05 * counter; i++)
             {
 
@@ -94,6 +97,7 @@ namespace DNA.NETCORE3._0
 
         public string directgetter()
         {
+            //returns directory
             string direct2 = direct.Substring(0, (direct.Length) - 5);
             direct2 = direct2 + "_trimmed.fastq";
             return direct2;
