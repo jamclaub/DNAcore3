@@ -36,9 +36,9 @@ namespace DNA.NETCORE3._0
         private List<string> SequenceLine2 = new List<string>();
         private List<string> QualityLine2 = new List<string>();
 
-        // constructor that sets the values from the trimmerwindow
         public Trimmer(int Quality, int WindowSize, int WindowQuality, int MaxWindowFail, int Offset)
         {
+            // constructor setting up user values
             minqual = Quality;
             window = WindowSize;
             minwin = WindowQuality;
@@ -46,20 +46,16 @@ namespace DNA.NETCORE3._0
             skew = Offset;
         }
 
-        public void SettingsStarter(int x, int y, int z)
-        {
-            window = x;
-            minwin = y;
-            minqual = z;
-        }
+        
 
         public void singlefile()
         {
-            //creates new Filemanager
+            // driver function for single file mode
             f = new Filemanager();
             one = f.trimmerselector();
             directa = f.directgetter();
             onea = new StreamWriter(directa);
+            // loops until end of file, reads 500 read blocks, sends them to the trimmer and writes results.
             while (!one.EndOfStream)
             {
                 blockreader(titleline, SequenceLine, QualityLine, one);
@@ -67,6 +63,7 @@ namespace DNA.NETCORE3._0
                 filesaver(titleline, SequenceLine, QualityLine, onea);
             }
             onea.Close();
+            // completion message
             foreach (Window window in Application.Current.Windows)
             {
                 if (window.GetType() == typeof(PreviewWindow))
@@ -81,7 +78,7 @@ namespace DNA.NETCORE3._0
 
         public void twofile()
         {
-
+            // driver function for two files
             x = new Filemanager();
             y = new Filemanager();
 
@@ -92,7 +89,7 @@ namespace DNA.NETCORE3._0
             directb = y.directgetter();
             onea = new StreamWriter(directa);
             twoa = new StreamWriter(directb);
-
+            // loops until end of file, reads 500 read blocks in two files, sends them to the trimmer and writes results.
             while (!one.EndOfStream && !two.EndOfStream)
             {
                 blockreader(titleline, SequenceLine, QualityLine, one);
@@ -106,6 +103,7 @@ namespace DNA.NETCORE3._0
 
         public void blockreader(List<string> title, List<string> seq, List<string> qual, StreamReader a)
         {
+            // function allows the reading of 500 read blocks
             for (int k = 0; k < blocksize; k++)
             {
                 title.Add(a.ReadLine());
@@ -117,6 +115,7 @@ namespace DNA.NETCORE3._0
 
         public void filesaver(List<string> title, List<string> seq, List<string> qual, StreamWriter b)
         {
+            // writes trimmed reads to file
             while (title.Count > 0 && title[0] != null)
             {
                 b.WriteLine(title[0]);
@@ -131,15 +130,21 @@ namespace DNA.NETCORE3._0
 
         public void TrimmerOneFile()
         {
+            //trimmer for the one file mode
             char[] set = null;
             char[] qul = null;
             int z = 0;
             int average = 0;
             int windowaverage = 0;
             int windowcount = 0;
-
+            
+            //loops through titleline list until reaches size of title line
             for (int x = 0; x < titleline.Count; x++)
             {
+
+                //z is used to keep place in list and help navigate to untrimmed reads
+                //everything before current z is trimmed, everything at it and after is untrimmed
+                //z only increments if read is of sufficient quality to move onward
                 if (SequenceLine[z] != null)
                 {
 
@@ -147,30 +152,38 @@ namespace DNA.NETCORE3._0
                     qul = QualityLine[z].ToCharArray();
                     Boolean acceptwindows = true;
                     Boolean acceptaverage = true;
+
+                    //reads through individual sequence character by character
                     for (int y = 0; y < set.Length; y++)
                     {
 
+
                         windowaverage = windowaverage + (Convert.ToInt32(qul[y]) - skew);
                         average = average + (Convert.ToInt32(qul[y]) - skew);
-                        if ((Convert.ToInt16(qul[y]) - skew) < minqual)
+
+                        //if quality (qul) at y is less than minqual, replace with ! in qul and W in set
+                        if ((Convert.ToInt32(qul[y]) - skew) < minqual)
                         {
                             qul[y] = '!';
                             set[y] = 'W';
                         }
 
-
+                        //every window increment after zero, calculate window average
                         if (y != 0 && (y % window) == 0)
                         {
-                            //average = windowaverage;
+                            
                             windowaverage = windowaverage / window;
 
+                            //if window verage less than required, reject
                             if (windowaverage < minwin)
                             {
                                 titleline.RemoveAt(z);
                                 SequenceLine.RemoveAt(z);
                                 QualityLine.RemoveAt(z);
-                                //z = z - 1;
+                                
                                 windowcount++;
+
+                                //If windowcount more than failed windows count
                                 if (windowcount >= failedwindows)
                                 {
                                     acceptwindows = false;
@@ -187,17 +200,19 @@ namespace DNA.NETCORE3._0
                     }
 
                     average = average / set.Length;
+
+                    //if read average less than quality and still accept windows, reject
                     if (average < minqual && acceptwindows == true)
                     {
                         titleline.RemoveAt(z);
                         SequenceLine.RemoveAt(z);
                         QualityLine.RemoveAt(z);
-                        //z = z - 1;
+                        
                         acceptaverage = false;
-                        //break;
+                        
                     }
 
-
+                    //if acceptwindows and acceptaverage, accept
                     if (acceptwindows == true && acceptaverage == true)
                     {
                         string t = new String(qul);
@@ -206,6 +221,8 @@ namespace DNA.NETCORE3._0
                         QualityLine[z] = t;
                         z++;
                     }
+
+                    //reset arrays
                     qul = null;
                     set = null;
                 }
@@ -217,6 +234,7 @@ namespace DNA.NETCORE3._0
 
         public void TrimmerTwoFIle()
         {
+            //trimmer for the two file mode
             char[] set = null;
             char[] set1 = null;
             char[] qul = null;
@@ -228,8 +246,12 @@ namespace DNA.NETCORE3._0
             int windowaverage2 = 0;
             if (titleline.Count < titleline2.Count)
             {
+                //loops through titleline list until reaches size of title line
                 for (int x = 0; x < titleline.Count; x++)
                 {
+                    //z is used to keep place in list and help navigate to untrimmed reads
+                    //everything before current z is trimmed, everything at it and after is untrimmed
+                    //z only increments if read is of sufficient quality to move onward
                     if (SequenceLine[z] != null && SequenceLine2[z] != null)
                     {
 
@@ -241,30 +263,31 @@ namespace DNA.NETCORE3._0
 
                         Boolean acceptwindows = true;
                         Boolean acceptaverage = true;
+                        //reads through individual sequence character by character
                         for (int y = 0; y < set.Length; y++)
                         {
 
                             windowaverage = windowaverage + (Convert.ToInt32(qul[y]) - 33);
-
+                            //if quality (qul) at y is less than minqual, replace with ! in qul and W in set
                             if ((Convert.ToInt32(qul[y]) - 33) < minqual)
                             {
                                 qul[y] = '!';
                                 set[y] = 'n';
                             }
 
-
+                            //if quality (qul) at y is less than minqual, replace with ! in qul and W in set
                             if ((Convert.ToInt32(qul1[y]) - 33) < minqual)
                             {
                                 qul1[y] = '!';
                                 set1[y] = 'n';
                             }
 
-
+                            //every window increment after zero, calculate window average
                             if (y != 0 && (window % y) == 0)
                             {
                                 average = windowaverage;
                                 windowaverage = windowaverage / window;
-
+                                //if window verage less than required, reject
                                 if (windowaverage < minwin)
                                 {
                                     titleline.RemoveAt(z);
@@ -289,7 +312,7 @@ namespace DNA.NETCORE3._0
                             //z = z - 1;
                             acceptaverage = false;
                         }
-
+                        //If windowcount more than failed windows count
                         if (acceptwindows == true && acceptaverage == true)
                         {
                             string t = Convert.ToString(qul);

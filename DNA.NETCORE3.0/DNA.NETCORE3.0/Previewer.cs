@@ -31,6 +31,7 @@ namespace DNA.NETCORE3._0
 
         public Previewer(ChartValues<ObservablePoint> A, ChartValues<ObservablePoint> B, ChartValues<ObservablePoint> C, ChartValues<ObservablePoint> D, int Offset)
         {
+            // constuctor for the Previewer
             ValA = A;
             ValB = B;
             ValC = C;
@@ -43,7 +44,6 @@ namespace DNA.NETCORE3._0
             f = new Filemanager();
             s = f.fileselectordialg();
         }
-
 
         public void runRandomSampler()
         {
@@ -62,9 +62,7 @@ namespace DNA.NETCORE3._0
 
         public void randomSampler(ChartValues<ObservablePoint> A, ChartValues<ObservablePoint> C)
         {
-            // y, for counting the number of iterations
             int y = 0;
-
             int p = 0;
 
             for (int x = 0; x < f.z.Count; x++)
@@ -72,13 +70,14 @@ namespace DNA.NETCORE3._0
                 p = x;
                 while (y < f.z[x] - y)
                 {
-                    // reads four lines from the file 
+                    // reads four lines from the file to get to the correct position
                     s.ReadLine();
                     s.ReadLine();
                     s.ReadLine();
                     s.ReadLine();
                     y++;
                 }
+                // read down so you can read the sequence line
                 s.ReadLine();
                 s.ReadLine();
                 s.ReadLine();
@@ -95,7 +94,7 @@ namespace DNA.NETCORE3._0
                     }
                     else
                     {
-                        // makes sure that the average is accurate
+                        // add to averages
                         avgs[z] = avgs[z] + Convert.ToInt32(c) - offset;
                     }
 
@@ -118,7 +117,7 @@ namespace DNA.NETCORE3._0
                 C.Add(new ObservablePoint(i + 1, avgs[i]));
                 
             }
-            // places a message in the statusbox that the previewer is done
+            // places a message in the StatusBox that the previewer is done
                 foreach (Window window in Application.Current.Windows)
                 {
                     if (window.GetType() == typeof(PreviewWindow))
